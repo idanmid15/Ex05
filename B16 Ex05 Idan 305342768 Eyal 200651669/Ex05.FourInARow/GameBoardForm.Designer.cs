@@ -1,6 +1,6 @@
 ﻿namespace Ex05.FourInARow
 {
-    partial class MainMenu
+    partial class GameBoardForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,34 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.PlayersLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // PlayersLabel
-            // 
-            this.PlayersLabel.AutoSize = true;
-            this.PlayersLabel.Location = new System.Drawing.Point(36, 24);
-            this.PlayersLabel.Name = "PlayersLabel";
-            this.PlayersLabel.Size = new System.Drawing.Size(44, 13);
-            this.PlayersLabel.TabIndex = 0;
-            this.PlayersLabel.Text = "Players:";
-            // 
-            // MainMenu
+            // GameBoardForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 262);
-            this.Controls.Add(this.PlayersLabel);
-            this.Name = "MainMenu";
-            this.Text = "MainMenu";
+            this.Name = "GameBoardForm";
+            this.Text = "4 In A Row!";
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label PlayersLabel;
     }
 }
-

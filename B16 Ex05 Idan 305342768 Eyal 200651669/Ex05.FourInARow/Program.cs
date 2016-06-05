@@ -12,9 +12,10 @@ namespace Ex05.FourInARow
         [STAThread]
         static void Main()
         {
+            /// TODO : Check if it is allowed
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainMenu());
+            Application.Run(new GameSettingsMenu());
         }
     }
 }
