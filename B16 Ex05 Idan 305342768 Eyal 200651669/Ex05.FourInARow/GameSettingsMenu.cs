@@ -32,7 +32,8 @@ namespace Ex05.FourInARow
         private void StartButton_Click(object sender, EventArgs e)
         {
             this.Hide();
-            GameBoardForm gameBoardForm = new GameBoardForm((int)this.numericUpDownRows.Value, (int)this.numericUpDownCols.Value);
+            GameManager gameManager = new GameManager(this.Player1TextBox.Text, this.Player2TextBox.Text, !this.Player2CheckBox.Checked, (int)this.numericUpDownRows.Value, (int)this.numericUpDownCols.Value);
+            GameBoardForm gameBoardForm = new GameBoardForm(gameManager);
             gameBoardForm.ShowDialog();
             this.Close();
         }

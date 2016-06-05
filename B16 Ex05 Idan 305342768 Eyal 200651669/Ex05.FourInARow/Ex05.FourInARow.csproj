@@ -40,12 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameBoard.cs" />
     <Compile Include="GameBoardForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GameBoardForm.Designer.cs">
       <DependentUpon>GameBoardForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="GameManager.cs" />
     <Compile Include="GameSettingsMenu.cs">
       <SubType>Form</SubType>
     </Compile>
