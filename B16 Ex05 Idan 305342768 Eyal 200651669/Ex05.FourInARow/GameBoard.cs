@@ -76,6 +76,27 @@
             return m_Board.GetLength(0);
         }
 
+        public char GetCell(int i_Row, int i_Col)
+        {
+            char toReturn = ' ';
+            switch(m_Board[i_Row, i_Col])
+            {
+                case eGameSigns.FirstPlayer:
+                    toReturn = r_FirstPlayerSign;
+                    break;
+                case eGameSigns.SecondPlayer:
+                    toReturn = r_SecondPlayerSign;
+                    break;
+            }
+
+            return toReturn;
+        }
+
+        public int GetColumnTop(int i_IndexOfColumn)
+        {
+            return m_ColumnTops[i_IndexOfColumn];
+        }
+
         public void InitiaizeNewBoard()
         {
             int heightOfMatrix = m_Board.GetLength(0) - 1;
