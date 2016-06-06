@@ -86,6 +86,11 @@ namespace Ex05.FourInARow
             return toReturn;
         }
 
+        internal void ReinitializeBoard()
+        {
+            m_CurrentGameBoard.InitiaizeNewBoard();
+        } 
+
         internal string GetWinningPlayer()
         {
             string endOfGameMessage = string.Empty;
