@@ -86,19 +86,7 @@ namespace Ex05.FourInARow
             return toReturn;
         }
 
-        internal string SendEndOfGameMessage()
-        {
-            ///check in the gameLogic if the game is over
-            bool isGameOver = this.m_CurrentGameBoard.IsOver();
-            string endOfGameMessage = string.Empty;
-            if (isGameOver)
-            {
-                endOfGameMessage = this.updateWinningPlayer();
-            }
-            return endOfGameMessage;
-        }
-
-        private string updateWinningPlayer()
+        internal string GetWinningPlayer()
         {
             string endOfGameMessage = string.Empty;
             string winningPlayer = ((GameBoard.eWinner)this.m_CurrentGameBoard.GetCurrentWinner()).ToString();
