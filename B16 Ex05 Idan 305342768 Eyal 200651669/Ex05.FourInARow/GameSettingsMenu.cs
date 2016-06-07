@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Ex05.FourInARow
 {
-    public partial class GameSettingsMenu : Form
+    internal partial class GameSettingsMenu : Form
     {
         public GameSettingsMenu()
         {

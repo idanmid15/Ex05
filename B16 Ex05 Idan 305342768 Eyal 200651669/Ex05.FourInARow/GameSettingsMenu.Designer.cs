@@ -1,6 +1,6 @@
 ﻿namespace Ex05.FourInARow
 {
-    partial class GameSettingsMenu
+    internal partial class GameSettingsMenu
     {
         /// <summary>
         /// Required designer variable.
@@ -17,6 +17,7 @@
             {
                 components.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
@@ -57,7 +58,7 @@
             this.StartButton.Location = new System.Drawing.Point(100, 202);
             this.StartButton.Name = "StartButton";
             this.StartButton.Size = new System.Drawing.Size(75, 23);
-            this.StartButton.TabIndex = 1;
+            this.StartButton.TabIndex = 5;
             this.StartButton.Text = "Start!";
             this.StartButton.UseVisualStyleBackColor = true;
             this.StartButton.Click += new System.EventHandler(this.StartButton_Click);
@@ -76,7 +77,7 @@
             this.Player1TextBox.Location = new System.Drawing.Point(100, 54);
             this.Player1TextBox.Name = "Player1TextBox";
             this.Player1TextBox.Size = new System.Drawing.Size(133, 20);
-            this.Player1TextBox.TabIndex = 2;
+            this.Player1TextBox.TabIndex = 0;
             // 
             // Player2TextBox
             // 
@@ -93,7 +94,7 @@
             this.Player2CheckBox.Location = new System.Drawing.Point(14, 86);
             this.Player2CheckBox.Name = "Player2CheckBox";
             this.Player2CheckBox.Size = new System.Drawing.Size(67, 17);
-            this.Player2CheckBox.TabIndex = 3;
+            this.Player2CheckBox.TabIndex = 1;
             this.Player2CheckBox.Text = "Player 2:";
             this.Player2CheckBox.UseVisualStyleBackColor = true;
             this.Player2CheckBox.CheckedChanged += new System.EventHandler(this.Player2CheckBox_CheckedChanged);
@@ -131,7 +132,7 @@
             0});
             this.numericUpDownRows.Name = "numericUpDownRows";
             this.numericUpDownRows.Size = new System.Drawing.Size(33, 20);
-            this.numericUpDownRows.TabIndex = 6;
+            this.numericUpDownRows.TabIndex = 3;
             this.numericUpDownRows.Value = new decimal(new int[] {
             4,
             0,
@@ -153,7 +154,7 @@
             0});
             this.numericUpDownCols.Name = "numericUpDownCols";
             this.numericUpDownCols.Size = new System.Drawing.Size(33, 20);
-            this.numericUpDownCols.TabIndex = 8;
+            this.numericUpDownCols.TabIndex = 4;
             this.numericUpDownCols.Value = new decimal(new int[] {
             4,
             0,
@@ -185,7 +186,10 @@
             this.Controls.Add(this.StartButton);
             this.Controls.Add(this.Player1Label);
             this.Controls.Add(this.PlayersLabel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
             this.Name = "GameSettingsMenu";
+            this.ShowIcon = false;
             this.Text = "GameSettings";
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRows)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCols)).EndInit();
@@ -209,4 +213,3 @@
         private System.Windows.Forms.Label colsLabel;
     }
 }
-

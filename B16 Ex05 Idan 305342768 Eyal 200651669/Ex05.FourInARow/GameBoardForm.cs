@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Ex05.FourInARow
 {
-    public partial class GameBoardForm : Form
+    internal partial class GameBoardForm : Form
     {
         private const byte k_MarginSpace = 6;
         private const byte k_CellSize = 30;
@@ -24,8 +24,8 @@ namespace Ex05.FourInARow
             m_GameManager = i_GameManager;
             int NumOfCols = this.m_GameManager.NumOfColumns;
             int NumOfRows = this.m_GameManager.NumOfRows;
-            int widthSize = 3 * k_MarginSpace + NumOfCols * (k_CellSize + k_SpaceBetweenButtons);
-            int heighthSize = 3 * k_MarginSpace + (NumOfRows + 1) * (k_CellSize + k_SpaceBetweenButtons) + k_SpaceForResult;
+            int widthSize = (4 * k_MarginSpace) + (NumOfCols * (k_CellSize + k_SpaceBetweenButtons));
+            int heighthSize = (3 * k_MarginSpace) + ((NumOfRows + 1) * (k_CellSize + k_SpaceBetweenButtons)) + k_SpaceForResult;
             this.Size = new Size(widthSize, heighthSize);
             drawLabeledButtons(NumOfCols);
             drawGameBoard();
@@ -35,13 +35,17 @@ namespace Ex05.FourInARow
         private void drawGameScore()
         {
             Label firstPlayerLabel = new Label();
-            firstPlayerLabel.Text = string.Format("{0} : {1}", this.m_GameManager.FirstPlayerName, this.m_GameManager.FirstPlayerScore);
+            firstPlayerLabel.MaximumSize = new Size(this.Width / 2, firstPlayerLabel.Height);
+            firstPlayerLabel.AutoSize = true;
+            firstPlayerLabel.Text = string.Format("{0} : {1}", m_GameManager.FirstPlayerName, m_GameManager.FirstPlayerScore);
             firstPlayerLabel.Location = new Point(0, this.Height - (10 * k_MarginSpace));
             this.Controls.Add(firstPlayerLabel);
 
             Label secondPlayerLabel = new Label();
+            firstPlayerLabel.MaximumSize = new Size(this.Width / 2, firstPlayerLabel.Height);
+            firstPlayerLabel.AutoSize = true;
             secondPlayerLabel.Text = string.Format("{0} : {1}", this.m_GameManager.SecondPlayerName, this.m_GameManager.SecondPlayerScore);
-            secondPlayerLabel.Location = new Point(firstPlayerLabel.Width + k_SpaceBetweenButtons, this.Height - (10 * k_MarginSpace));
+            secondPlayerLabel.Location = new Point(this.Width - secondPlayerLabel.Width, this.Height - (10 * k_MarginSpace));
             this.Controls.Add(secondPlayerLabel);
         }
 
@@ -57,9 +61,9 @@ namespace Ex05.FourInARow
                     m_ButtonMatrix[y, x] = new Button();
                     m_ButtonMatrix[y, x].Width = k_CellSize;
                     m_ButtonMatrix[y, x].Height = k_CellSize;
-                    m_ButtonMatrix[y, x].Text = m_GameManager.GetCell(y, x) + "";
-                    currentYLocation = m_FirstRowButtons[0].Height + y * (k_CellSize + k_SpaceBetweenButtons) + k_MarginSpace;
-                    currentXLocation = x * (k_CellSize + k_SpaceBetweenButtons) + k_MarginSpace;
+                    m_ButtonMatrix[y, x].Text = m_GameManager.GetCell(y, x) + string.Empty;
+                    currentYLocation = m_FirstRowButtons[0].Height + (y * (k_CellSize + k_SpaceBetweenButtons)) + k_MarginSpace;
+                    currentXLocation = (x * (k_CellSize + k_SpaceBetweenButtons)) + k_MarginSpace;
                     m_ButtonMatrix[y, x].Location = new Point(currentXLocation, currentYLocation);
                     this.Controls.Add(m_ButtonMatrix[y, x]);
                 }
@@ -83,7 +87,7 @@ namespace Ex05.FourInARow
             }
         }
 
-        private void reDraw()
+        private void reDrawGame()
         {
             this.Hide();
             m_GameManager.ReinitializeBoard();
@@ -97,38 +101,54 @@ namespace Ex05.FourInARow
             {
                 Button currentClickedButton = i_Sender as Button;
                 int colToInsert = int.Parse(currentClickedButton.Text) - 1;
-                int colHeight = m_GameManager.GetColumnTop(colToInsert);
+                int rowToInsert = m_GameManager.GetColumnTop(colToInsert);
 
-                //if it's a valid insertion move
+                // If it's a valid insertion move
                 if (m_GameManager.InsertToCol(colToInsert))
                 {
-                    this.m_ButtonMatrix[colHeight, colToInsert].Text = m_GameManager.GetCell(colHeight, colToInsert) + "";
-                    int computerMove = this.m_GameManager.DecideNextMove();
-                    if (computerMove != -1 && computerMove != -5)
-                    {
-                        colHeight = m_GameManager.GetColumnTop(computerMove) + 1;
-                        this.m_ButtonMatrix[colHeight, computerMove].Text = m_GameManager.GetCell(colHeight, computerMove) + "";
-                    }
-
-                    if (this.m_GameManager.IsGameOver())
-                    {
-                        displayAnotherRoundMessageBox();
-                    }
+                    drawPlayerSignAt(rowToInsert, colToInsert);
+                    drawNextMove();
                 }
+            }
+        }
+
+        private void drawPlayerSignAt(int i_RowToInsert, int i_ColToInsert)
+        {
+            m_ButtonMatrix[i_RowToInsert, i_ColToInsert].Text = m_GameManager.GetCell(i_RowToInsert, i_ColToInsert) + string.Empty;
+        }
+
+        private void drawNextMove()
+        {
+            int computerColumn = m_GameManager.DecideNextMove();
+            int rowToInsert = -1;
+            if (computerColumn != -1)
+            {
+                rowToInsert = m_GameManager.GetColumnTop(computerColumn) + 1;
+                drawPlayerSignAt(rowToInsert, computerColumn);
+            }
+
+            if (m_GameManager.IsGameOver())
+            {
+                displayAnotherRoundMessageBox();
             }
         }
 
         private void displayAnotherRoundMessageBox()
         {
-            DialogResult result = MessageBox.Show(string.Format("{0}{1}Another Round?", this.m_GameManager.GetWinningPlayer(), Environment.NewLine)
-                                    , "Game Ended!", MessageBoxButtons.YesNo);
+            DialogResult result = MessageBox.Show(
+                string.Format(
+                    "{0}{1}Another Round?",
+                    this.m_GameManager.GetWinningPlayer(),
+                    Environment.NewLine),
+                "Game Ended!",
+                MessageBoxButtons.YesNo);
             if (result == DialogResult.No)
             {
                 this.Close();
             }
             else
             {
-                reDraw();
+                reDrawGame();
             }
         }
     }

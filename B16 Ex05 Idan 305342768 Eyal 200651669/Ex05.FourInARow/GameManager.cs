@@ -6,7 +6,6 @@ namespace Ex05.FourInARow
 {
     internal class GameManager
     {
-
         private string m_FirstPlayerName;
 
         public string FirstPlayerName
@@ -59,7 +58,8 @@ namespace Ex05.FourInARow
             return m_CurrentGameBoard.GetColumnTop(i_IndexOfColumn);
         }
 
-        public GameManager(string i_FirstPlayerName,
+        public GameManager(
+            string i_FirstPlayerName,
             string i_SecondPlayerName,
             bool i_IsOpponentComputer,
             int i_NumOfRows,
@@ -77,7 +77,8 @@ namespace Ex05.FourInARow
         internal bool InsertToCol(int i_ColToInsert)
         {
             bool toReturn = false;
-            if (!this.m_CurrentGameBoard.IsColumnFull(i_ColToInsert)) {
+            if (!this.m_CurrentGameBoard.IsColumnFull(i_ColToInsert))
+            {
                 m_CurrentGameBoard.InsertToColumn(i_ColToInsert, m_IsFirstPlayerTurn);
                 m_IsFirstPlayerTurn = !m_IsFirstPlayerTurn;
                 toReturn = true;
@@ -113,48 +114,18 @@ namespace Ex05.FourInARow
 
             return endOfGameMessage;
         }
-/*
-        private void endOfGameDisplay()
-        {
-            bool isNewGameDecisionMade = false;
-            bool isGameOver = this.m_GameBoard.IsOver();
-            string winningPlayer = string.Empty;
-            Program.displayOutputToUser("want to start a new game[y\\n]?");
-            while (!isNewGameDecisionMade)
-            {
-                string newGameDecision = Program.recieveInputFromUser();
-                if (newGameDecision == "y")
-                {
-                    this.createNewGame();
-                    isNewGameDecisionMade = true;
-                    this.RunGame();
-                }
-                else if (newGameDecision == "n")
-                {
-                    isNewGameDecisionMade = true;
-                    System.Environment.Exit(1);
-                }
-                else
-                {
-                    Program.displayOutputToUser("not a valid argument. please enter 'y' or 'n':");
-                }
-            }
-        }*/
 
         public int DecideNextMove()
         {
             int computerNextMove = -1;
-            //check if it's game over, and if not, whether to make a computer move
-            if (!this.m_CurrentGameBoard.IsOver())
+
+            // Check if it's game over, and if not, decide whether to make a computer move
+            if (!IsGameOver())
             {
                 if (this.m_IsOpponentComputer)
                 {
                     computerNextMove = makeComputerMove();
                 }
-            }
-            else
-            {
-                computerNextMove = -5;
             }
 
             return computerNextMove;
@@ -186,6 +157,7 @@ namespace Ex05.FourInARow
             }
 
             this.m_CurrentGameBoard.InsertToColumn(computerMove - 1, this.m_IsFirstPlayerTurn);
+
             ///change the current gamer
             this.m_IsFirstPlayerTurn = !this.m_IsFirstPlayerTurn;
             return computerMove - 1;
@@ -240,6 +212,5 @@ namespace Ex05.FourInARow
         {
             return this.m_CurrentGameBoard.IsOver();
         }
-
     }
 }

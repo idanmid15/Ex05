@@ -1,6 +1,6 @@
 ﻿namespace Ex05.FourInARow
 {
-    partial class GameBoardForm
+    internal partial class GameBoardForm
     {
         /// <summary>
         /// Required designer variable.
@@ -17,6 +17,7 @@
             {
                 components.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
@@ -37,6 +38,8 @@
             this.ClientSize = new System.Drawing.Size(284, 262);
             this.Name = "GameBoardForm";
             this.Text = "4 In A Row!";
+            this.MaximizeBox = false;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.ResumeLayout(false);
 
         }
