@@ -32,21 +32,21 @@ namespace Ex05.FourInARow
             drawGameScore();
         }
 
-        private void drawGameScore()
+        private void drawLabeledButtons(int i_NumOfColumns)
         {
-            Label firstPlayerLabel = new Label();
-            firstPlayerLabel.MaximumSize = new Size(this.Width / 2, firstPlayerLabel.Height);
-            firstPlayerLabel.AutoSize = true;
-            firstPlayerLabel.Text = string.Format("{0} : {1}", m_GameManager.FirstPlayerName, m_GameManager.FirstPlayerScore);
-            firstPlayerLabel.Location = new Point(0, this.Height - (10 * k_MarginSpace));
-            this.Controls.Add(firstPlayerLabel);
+            m_FirstRowButtons = new List<Button>();
+            Button currentButton = null;
+            for (int i = 0; i < i_NumOfColumns; i++)
+            {
+                currentButton = new Button();
+                currentButton.Text = (i + 1).ToString();
+                currentButton.Width = k_CellSize;
+                currentButton.Location = new Point(k_MarginSpace + (i * (k_CellSize + k_SpaceBetweenButtons)), k_MarginSpace);
+                currentButton.Click += new System.EventHandler(InsertButton_Click);
+                m_FirstRowButtons.Add(currentButton);
 
-            Label secondPlayerLabel = new Label();
-            firstPlayerLabel.MaximumSize = new Size(this.Width / 2, firstPlayerLabel.Height);
-            firstPlayerLabel.AutoSize = true;
-            secondPlayerLabel.Text = string.Format("{0} : {1}", this.m_GameManager.SecondPlayerName, this.m_GameManager.SecondPlayerScore);
-            secondPlayerLabel.Location = new Point(this.Width - secondPlayerLabel.Width, this.Height - (10 * k_MarginSpace));
-            this.Controls.Add(secondPlayerLabel);
+                this.Controls.Add(m_FirstRowButtons[i]);
+            }
         }
 
         private void drawGameBoard()
@@ -70,29 +70,21 @@ namespace Ex05.FourInARow
             }
         }
 
-        private void drawLabeledButtons(int i_NumOfColumns)
+        private void drawGameScore()
         {
-            m_FirstRowButtons = new List<Button>();
-            Button currentButton = null;
-            for (int i = 0; i < i_NumOfColumns; i++)
-            {
-                currentButton = new Button();
-                currentButton.Text = (i + 1).ToString();
-                currentButton.Width = k_CellSize;
-                currentButton.Location = new Point(k_MarginSpace + (i * (k_CellSize + k_SpaceBetweenButtons)), k_MarginSpace);
-                currentButton.Click += new System.EventHandler(InsertButton_Click);
-                m_FirstRowButtons.Add(currentButton);
+            Label firstPlayerLabel = new Label();
+            firstPlayerLabel.MaximumSize = new Size(this.Width / 2, firstPlayerLabel.Height);
+            firstPlayerLabel.AutoSize = true;
+            firstPlayerLabel.Text = string.Format("{0} : {1}", m_GameManager.FirstPlayerName, m_GameManager.FirstPlayerScore);
+            firstPlayerLabel.Location = new Point(0, this.Height - (10 * k_MarginSpace));
+            this.Controls.Add(firstPlayerLabel);
 
-                this.Controls.Add(m_FirstRowButtons[i]);
-            }
-        }
-
-        private void reDrawGame()
-        {
-            this.Hide();
-            m_GameManager.ReinitializeBoard();
-            new GameBoardForm(m_GameManager).ShowDialog();
-            this.Close();
+            Label secondPlayerLabel = new Label();
+            firstPlayerLabel.MaximumSize = new Size(this.Width / 2, firstPlayerLabel.Height);
+            secondPlayerLabel.AutoSize = true;
+            secondPlayerLabel.Text = string.Format("{0} : {1}", this.m_GameManager.SecondPlayerName, this.m_GameManager.SecondPlayerScore);
+            secondPlayerLabel.Location = new Point(this.Width - secondPlayerLabel.Width, this.Height - (10 * k_MarginSpace));
+            this.Controls.Add(secondPlayerLabel);
         }
 
         private void InsertButton_Click(object i_Sender, EventArgs e)
@@ -104,7 +96,7 @@ namespace Ex05.FourInARow
                 int rowToInsert = m_GameManager.GetColumnTop(colToInsert);
 
                 // If it's a valid insertion move
-                if (m_GameManager.InsertToCol(colToInsert))
+                if (m_GameManager.InsertToColSuccess(colToInsert))
                 {
                     drawPlayerSignAt(rowToInsert, colToInsert);
                     drawNextMove();
@@ -121,8 +113,10 @@ namespace Ex05.FourInARow
         {
             int computerColumn = m_GameManager.DecideNextMove();
             int rowToInsert = -1;
+
             if (computerColumn != -1)
             {
+                // Computer has made a move in the game manager
                 rowToInsert = m_GameManager.GetColumnTop(computerColumn) + 1;
                 drawPlayerSignAt(rowToInsert, computerColumn);
             }
@@ -150,6 +144,14 @@ namespace Ex05.FourInARow
             {
                 reDrawGame();
             }
+        }
+
+        private void reDrawGame()
+        {
+            this.Hide();
+            m_GameManager.ReinitializeBoard();
+            new GameBoardForm(m_GameManager).ShowDialog();
+            this.Close();
         }
     }
 }

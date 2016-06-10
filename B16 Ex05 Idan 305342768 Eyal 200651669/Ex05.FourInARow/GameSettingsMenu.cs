@@ -33,8 +33,7 @@ namespace Ex05.FourInARow
         {
             this.Hide();
             GameManager gameManager = new GameManager(this.Player1TextBox.Text, this.Player2TextBox.Text, !this.Player2CheckBox.Checked, (int)this.numericUpDownRows.Value, (int)this.numericUpDownCols.Value);
-            GameBoardForm gameBoardForm = new GameBoardForm(gameManager);
-            gameBoardForm.ShowDialog();
+            new GameBoardForm(gameManager).ShowDialog();
             this.Close();
         }
     }

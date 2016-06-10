@@ -74,7 +74,7 @@ namespace Ex05.FourInARow
             m_SecondPlayerScore = 0;
         }
 
-        internal bool InsertToCol(int i_ColToInsert)
+        internal bool InsertToColSuccess(int i_ColToInsert)
         {
             bool toReturn = false;
             if (!this.m_CurrentGameBoard.IsColumnFull(i_ColToInsert))
